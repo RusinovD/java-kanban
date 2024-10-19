@@ -1,3 +1,5 @@
+package Model;
+
 import java.util.ArrayList;
 
 public class Epic extends Task {
@@ -8,13 +10,6 @@ public class Epic extends Task {
         this.subtasks = new ArrayList<>(); // Инициализация ArrayList
     }
 
-    public void addSubtask(Subtask subtask) {
-        subtasks.add(subtask);
-    }
-
-    public ArrayList<Subtask> getSubtasks() {
-        return subtasks; // Возвращаем ArrayList
-    }
 
     @Override
     public String toString() {

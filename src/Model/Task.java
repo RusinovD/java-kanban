@@ -1,3 +1,5 @@
+package Model;
+
 public class Task {
     private String title;
     private String description;
@@ -43,10 +45,8 @@ public class Task {
     public int hashCode() {
         return Integer.hashCode(id);
     }
+
+    public void setId(int id) {
+    }
 }
 
-enum Status {
-    NEW,
-    IN_PROGRESS,
-    DONE
-}

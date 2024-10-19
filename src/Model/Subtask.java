@@ -1,9 +1,12 @@
+package Model;
+
 public class Subtask extends Task {
     private int epicId; // Идентификатор эпика, к которому относится подзадача
 
-    public Subtask(String title, String description, int id, int epicId) {
+    public Subtask(String title, String description, int id) {
         super(title, description, id);
-        this.epicId = epicId;
+        this.setStatus(Status.NEW);
+
     }
 
     public int getEpicId() {
