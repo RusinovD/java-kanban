@@ -4,40 +4,43 @@ import Model.*;
 import controllers.TaskManager;
 
 public class Main {
-    private static TaskManager taskManager;
+    private static TaskManager taskManager = new TaskManager();
 
     public static void main(String[] args) {
         // Создаем задачи
-        Task task1 = new Task("Задача 1", "Описание задачи 1", 1);
+        Task task1 = new Task(0,"Задача 1", "Описание задачи 1", Status.NEW);
         taskManager.addTask(task1);
-        Task task2 = new Task("Задача 2", "Описание задачи 2", 2);
+        Task task2 = new Task(0, "Задача 2", "Описание задачи 2", Status.NEW);
         taskManager.addTask(task2);
 
-        // Создаем первый эпик
-        int epicId = 0;
-        Epic epic1 = new Epic("Эпик 1", "Описание эпика 1", 3);
+        //Создаем первый эпик
+        Epic epic1 = new Epic(0, "Эпик 1", "Описание эпика 1", Status.NEW);
         taskManager.addEpic(epic1);
 
-        // Создаем подзадачи к первому эпику
-        Subtask subtask1 = new Subtask("Подзадача 1", "Описание подзадачи 1", 4);
-        taskManager.addSubtask(epic1, subtask1);
+        //Создаем подзадачи к первому эпику
+        Subtask subtask1 = new Subtask(0,"Подзадача 1", "Описание подзадачи 1", Status.NEW, 0);
+        taskManager.addSubtask(subtask1);
 
-        Subtask subtask2 = new Subtask("Подзадача 2", "Описание подзадачи 2", 5);
-        taskManager.addSubtask(epic1, subtask2);
+        Subtask subtask2 = new Subtask(0,"Подзадача 2", "Описание подзадачи 2", Status.NEW, 0);
+        taskManager.addSubtask(subtask2);
 
-        // Создаем второй эпик
-        Epic epic2 = new Epic("Эпик 2", "Описание эпика 2", 6);
+        //Создаем второй эпик
+        Epic epic2 = new Epic(0,"Эпик 2", "Описание эпика 2", Status.NEW);
         taskManager.addEpic(epic2);
 
-        // Распечатываем списки задач и эпиков
+        // Распечатываем списки задач, эпиков и подзадач
         System.out.println("Задачи:");
-        System.out.println(taskManager.getAllTasks());
+        System.out.println(taskManager.getTasks());
 
         System.out.println("Эпики:");
-        System.out.println(taskManager.getAllEpics());
+        System.out.println(taskManager.getEpics());
 
         System.out.println("Подзадачи:");
-        System.out.println(taskManager.getAllSubtasks());
+        System.out.println(taskManager.getSubtasks());
+
+        // распечатываем списко подзадач одного эпика
+        System.out.println("Подзадачи " + epic1 + ":");
+        System.out.println(taskManager.getSubtasksOfEpic(3));
 
         // Изменяем статусы
         taskManager.updateTask(task1);
@@ -50,13 +53,10 @@ public class Main {
 
         // Удаляем одну из задач
         taskManager.removeTask(1);
+        // Удаляем один из эпиков
+        taskManager.removeTask(3);
 
-        // Удаляем все задачи (согласно ТЗ "b. Удаление всех задач.")
-        taskManager.removeAllTask();
-
-        // Удаляем задачу
-        task1 = null;
-        System.out.println("После удаления задачи 1:");
-        System.out.println(task1); // Переменная task1 теперь null
+        // Удаляем задачи определенного типа
+        taskManager.deleteTasks();
     }
 }
