@@ -3,8 +3,96 @@ package taskTracker;
 import Model.*;
 import controllers.TaskManager;
 
+import java.util.ArrayList;
+
 public class Main {
-    private static TaskManager taskManager = new TaskManager();
+    private static TaskManager taskManager = new TaskManager() {
+        @Override
+        public void addTask(Task task) {
+
+        }
+
+        @Override
+        public void addEpic(Epic epic) {
+
+        }
+
+        @Override
+        public Integer addSubtask(Subtask subtask) {
+            return 0;
+        }
+
+        @Override
+        public ArrayList<Task> getTasks() {
+            return null;
+        }
+
+        @Override
+        public ArrayList<Subtask> getSubtasks() {
+            return null;
+        }
+
+        @Override
+        public ArrayList<Epic> getEpics() {
+            return null;
+        }
+
+        @Override
+        public ArrayList<Subtask> getSubtasksOfEpic(Integer epicId) {
+            return null;
+        }
+
+        @Override
+        public void removeTask(int id) {
+
+        }
+
+        @Override
+        public void deleteTasks() {
+
+        }
+
+        @Override
+        public void deleteSubtasks() {
+
+        }
+
+        @Override
+        public void deleteEpics() {
+
+        }
+
+        @Override
+        public void updateTask(Task task) {
+
+        }
+
+        @Override
+        public ArrayList<Task> getHistory() {
+
+            return null;
+        }
+
+        @Override
+        public Task getTask(int id){
+            return null;
+        }
+
+        @Override
+        public Epic getEpic(int id) {
+            return null;
+        }
+
+        @Override
+        public Subtask getSubtask(int id) {
+            return null;
+        }
+
+        @Override
+        public String toString() {
+            return "";
+        }
+    };
 
     public static void main(String[] args) {
         // Создаем задачи
@@ -58,5 +146,17 @@ public class Main {
 
         // Удаляем задачи определенного типа
         taskManager.deleteTasks();
+
+        //получаем задачу, эпик и подзадачу по id
+        System.out.println("Задача №: " + 1);
+        System.out.println(taskManager.getTask(1));
+        System.out.println("Эпик №: " + 3);
+        System.out.println(taskManager.getEpic(3));
+        System.out.println("Подзадача №: " + 4);
+        System.out.println(taskManager.getSubtask(4));
+
+        //вывод истории запросов задач
+        System.out.println("История запросов задач:");
+        System.out.println(taskManager.getHistory());
     }
 }
