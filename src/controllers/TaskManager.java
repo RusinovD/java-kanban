@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface TaskManager {
-    void addTask(Task task);
+    int addTask(Task task);
 
     void addEpic(Epic epic);
 
@@ -42,6 +42,4 @@ public interface TaskManager {
 
     Subtask getSubtask(int id);
 
-    @Override
-    String toString();
 }
