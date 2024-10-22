@@ -1,27 +1,21 @@
 package controllers;
 
-import Model.*;
+import Model.Epic;
+import Model.Status;
+import Model.Subtask;
+import Model.Task;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-abstract class InMemoryTaskManager implements TaskManager {
+public class InMemoryTaskManager implements TaskManager {
     private HashMap<Integer, Task> tasks; // Хранит все задачи
     private HashMap<Integer, Epic> epics; // Хранит все эпики
-    public HashMap<Integer, Subtask> subtasks; // Список подзадач
-    private int nextId = 1; // хранит уникальный ID
+    private HashMap<Integer, Subtask> subtasks; // Список подзадач
+    private int nextId = 0; // хранит уникальный ID
 
-    private HistoryManager historyManager = new HistoryManager() {
-        @Override
-        public void add(Task task) {
-
-        }
-
-        @Override
-        public List<Task> getHistory() {
-            return List.of();
-        }
-    };
+    private HistoryManager historyManager = Managers.getDefaultHistory();
 
     public InMemoryTaskManager() {
         tasks = new HashMap<>();
@@ -32,15 +26,16 @@ abstract class InMemoryTaskManager implements TaskManager {
 
     @Override
     public int addTask(Task task) {
-        task.setId(nextId++);
+        task.setId(++nextId);
         tasks.put(nextId, task);
-        return 0;
+        return task.getId();
     }
 
     @Override
-    public void addEpic(Epic epic) {
-        epic.setId(nextId++);
+    public int addEpic(Epic epic) {
+        epic.setId(++nextId);
         epics.put(nextId, epic);
+        return epic.getId();
     }
 
     @Override
@@ -50,7 +45,7 @@ abstract class InMemoryTaskManager implements TaskManager {
         if (epic == null) {// проверяем не пустой ли эпик
             return null;
         }
-        final int id = nextId++; //генерируем новый id для подзадачи
+        final int id = ++nextId; //генерируем новый id для подзадачи
         subtask.setId(id); // передаем тот id в класс подзадачи
         subtasks.put(id, subtask); // добавляем подзадачу в хэшмэп
         epic.getSubtasksId().add(subtask); //в лист эпика подзадачу
@@ -178,5 +173,29 @@ abstract class InMemoryTaskManager implements TaskManager {
                 ", epics=" + epics +
                 ", subtasks=" + subtasks +
                 '}';
+    }
+
+    @Override
+    public List<Task> getHistory() {
+        return List.of();
+    }
+
+    @Override
+    public Task getTask(int id) {
+        final Task task = tasks.get(id);
+        historyManager.add(task);
+        return task;
+    }
+    @Override
+    public Subtask getSubtask(int id) {
+        final Subtask subtask = subtasks.get(id);
+        historyManager.add(subtask);
+        return subtask;
+    }
+    @Override
+    public Epic getEpic(int id) {
+        final Epic epic = epics.get(id);
+        historyManager.add(epic);
+        return epic;
     }
 }

@@ -1,11 +1,11 @@
 package taskTracker;
 
+import Model.Epic;
+import Model.Status;
+import Model.Subtask;
+import Model.Task;
 import controllers.Managers;
 import controllers.TaskManager;
-import Model.*;
-
-
-import java.util.ArrayList;
 
 public class Main {
     private static TaskManager taskManager = Managers.getDefault();
@@ -23,10 +23,10 @@ public class Main {
         taskManager.addEpic(epic1);
 
         //Создаем подзадачи к первому эпику
-        Subtask subtask1 = new Subtask(0,"Подзадача 1", "Описание подзадачи 1", Status.NEW, 0);
+        Subtask subtask1 = new Subtask(0,"Подзадача 1", "Описание подзадачи 1", Status.NEW, 3);
         taskManager.addSubtask(subtask1);
 
-        Subtask subtask2 = new Subtask(0,"Подзадача 2", "Описание подзадачи 2", Status.NEW, 0);
+        Subtask subtask2 = new Subtask(0,"Подзадача 2", "Описание подзадачи 2", Status.NEW, 3);
         taskManager.addSubtask(subtask2);
 
         //Создаем второй эпик
